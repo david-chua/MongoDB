@@ -20,12 +20,17 @@
 
 //Asynchronous --> Non Blocking
 const fs = require('fs');
-fs.readFile('./txt/input.txt', 'utf-8', (err,data) =>{
-  console.log(data);
-})
+// fs.readFile('./txt/input.txt', 'utf-8', (err,data) =>{
+//   console.log(data);
+// })
+//
+// console.log('Reading file...');
 
-console.log('Reading file...');
 
+// fs.readFile('./txt/start.txt', 'utf-8', (err, data) => {
+//   console.log(data);
+// });
+// console.log('Will Read File!');
 
 // Why us callbacks in NodeJS?
 // In a node JS, there's only 1 thread. Where the code is executied in the processor.
@@ -43,15 +48,28 @@ console.log('Reading file...');
 
 // Call back from hell example:
 
-const fs = require('fs');
+// const fs = require('fs');
 
-fs.readFile('start.txt', 'utf-8', (err,data) => {
-  fs.readFile(`${data}.txt`, 'utf-8', (err, data2) => {
-    fs.readFile('append.txt', 'utf-8', (err, data3) => {
-      fs.writeFile('final.txt', `${data2}${data3}`,'utf-8', (err) => {
-        if (err) throw err;
-        console.log('Your file has been saved :D');
-      });
+// fs.readFile('start.txt', 'utf-8', (err,data) => {
+//   fs.readFile(`${data}.txt`, 'utf-8', (err, data2) => {
+//     fs.readFile('append.txt', 'utf-8', (err, data3) => {
+//       fs.writeFile('final.txt', `${data2}${data3}`,'utf-8', (err) => {
+//         if (err) throw err;
+//         console.log('Your file has been saved :D');
+//       });
+//     });
+//   });
+// });
+
+fs.readFile('./txt/start.txt', 'utf-8', (err, data1) => {
+  fs.readFile(`./txt/${data1}.txt`, 'utf-8', (err, data2) => {
+    console.log(data2);
+    fs.readFile('./txt/append.txt', 'utf-8', (err, data3) => {
+      console.log(data3);
+
+      fs.writeFile('./txt/final.txt', `${data2}\n${data3}`, 'utf-8', (err) => {
+          console.log('files has been written');
+      })
     });
   });
 });

@@ -16,4 +16,4 @@
 
 Don't use (typically):
 
-* Application with heavy server side processing (CPU-intensive) - Better ot use Ruby on Rails, PHP, or Python.
+* Application with heavy server side processing (CPU-intensive) - Better to use Ruby on Rails, PHP, or Python.
