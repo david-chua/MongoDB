@@ -46,3 +46,10 @@ Other microtasks queue (resolved promises)
 The other fields are set immediately right after the current callbacks.
 
 Node checks for any pending timers or I/O tasks, if yes --> goes back to event loop. if not --> exits the program.
+
+
+Don't block:
+- Don't use sync versions of function in fs, crypto, zlib modules in your callback functions
+- Don't perform complex calculations (loops inside loops)
+- Be careful with JSON in large objects
+- Don't use too complex regular expressions(e.g. nested quantifiers);
