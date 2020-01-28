@@ -36,6 +36,7 @@ const writeFilePro = (file, data) => {
 //     console.log(err);
 //   })
 
+/* Async Only
 const getDogPic = async() => {
   try {
     const data = await readFilePro(`${__dirname}/dog.txt`);
@@ -52,6 +53,31 @@ const getDogPic = async() => {
   }
   return '2: ready'
 }
+*/
+
+
+/* Multiple Promises */
+const getDogPic = async() => {
+  try {
+    const data = await readFilePro(`${__dirname}/dog.txt`);
+    console.log(`Breed: ${data}`);
+
+    const res  = superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
+    const res1 = superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
+    const res2 = superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
+    const all = await Promise.all([res,res1,res2]);
+    const imgs = all.map(image => image.body.message)
+    console.log(imgs);
+
+    await writeFilePro('dog-img.txt', imgs.join('\n'));
+    console.log('Random dog image saved to file');
+  } catch(err){
+    console.log(err);
+    throw(err)
+  }
+  return '2: ready'
+}
+
 
 (async () => {
   try {
