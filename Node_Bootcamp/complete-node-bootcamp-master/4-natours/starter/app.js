@@ -29,6 +29,28 @@ app.get('/api/v1/tours', (req,res) => {
   });
 });
 
+// adding ? after param, make sit optional ie: /:id/:x/:y?
+app.get('/api/v1/tours/:id', (req,res) => {
+  console.log(req.params);
+  const id = req.params.id * 1;
+
+  // if (id > tours.length){
+  //   return res.status(404).json({status: "fail", message: "404 not found, Invalid ID"})
+  // }
+  const tour = tours.find(el => el.id === id);
+  if (!tour){
+    return res.status(404).json({status: "fail", message: "404 not found, Invalid ID"})
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour
+    }
+  });
+});
+
+
+
 app.post('/api/v1/tours', (req,res) => {
   const newId = tours[tours.length-1].id + 1;
   const newTour = Object.assign({id: newId}, req.body)
