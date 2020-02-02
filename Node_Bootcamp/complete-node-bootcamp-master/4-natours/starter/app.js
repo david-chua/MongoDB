@@ -5,15 +5,6 @@ const app = express();
 
 // Middelware
 app.use(express.json());
-// app.get('/', (req,res) => {
-//     res.status(200).json({
-//       message: 'Hello from the server side!',
-//       app: 'NA Tours'});
-// })
-//
-// app.post('/', (req,res) =>{
-//   res.send('You can post to this URL endpoint...');
-// })
 
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
