@@ -95,6 +95,13 @@ const deleteTour = (req,res) => {
   })
 }
 
+const getAllUsers = (req,res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined'
+  });
+};
+
 // This code is the same as below. Just refactoring
 // app.get('/api/v1/tours', getAllTours);
 // // adding ? after param, make sit optional ie: /:id/:x/:y?
@@ -113,6 +120,16 @@ app.route('/api/v1/tours/:id')
   .patch(updateTour)
   .delete(deleteTour);
 
+app
+  .route('/api/v1/users')
+  .get(getAllUsers)
+  .post(createUser);
+
+app
+  .route('/api/v1/users:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser)
 const port = 3000;
 
 app.listen(port, () => {
