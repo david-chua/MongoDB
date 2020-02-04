@@ -1,9 +1,11 @@
 const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 
 // Middelware
+app.use(morgan('dev'));
 app.use(express.json());
 
 app.use((req,res,next) => {
@@ -138,28 +140,35 @@ const deleteUser = (req,res) => {
 // app.patch('/api/v1/tours/:id', updateTour);
 // app.delete('/api/v1/tours/:id', deleteTour);
 
-app.use('/api/v1/tours', tourRouter);
-const tourRouter = express.Router()
-app
+// Routes
+const tourRouter = express.Router();
+const userRouter = express.Router();
+
+tourRouter
   .route('/')
   .get(getAllTours)
   .post(createTour)
 
-app.route('/:id')
+tourRouter
+  .route('/:id')
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
 
-app
-  .route('/api/v1/users')
+userRouter
+  .route('/')
   .get(getAllUsers)
   .post(createUser);
 
-app
-  .route('/api/v1/users:id')
+userRouter
+  .route('/:id')
   .get(getUser)
   .patch(updateUser)
   .delete(deleteUser)
+
+
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
 const port = 3000;
 
