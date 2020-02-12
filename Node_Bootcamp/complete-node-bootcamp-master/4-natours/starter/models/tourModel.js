@@ -79,6 +79,29 @@ tourSchema.pre('save', function(next){
 //   console.log(doc);
 //   next();
 // })
+
+// tourSchema.pre('find', function(next){
+//   this.find({ secretTour: {$ne: true } })
+//   next()
+// });
+
+tourSchema.pre(/^find/, function(next){
+  this.find({secretTour: {$ne: true } })
+  this.start = Date.now()
+  next();
+})
+
+tourSchema.post(/^find/, function(docs, next){
+  console.log(`Query took: ${Date.now() - this.start} milliseconds`);
+  console.log(docs);
+  next();
+})
+// Possible way
+// tourSchema.pre('findOne', function(next){
+//   this.find({ secretTour: {$ne: true } })
+//   next()
+// });
+
 const Tour = mongoose.model('Tour', tourSchema);
 
 // const testTour = new Tour({
