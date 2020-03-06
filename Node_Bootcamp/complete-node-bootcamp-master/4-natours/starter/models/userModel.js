@@ -24,7 +24,14 @@ const userSchema = new mongoose.Schema({
   passwordConfirm: {
     type: String,
     required: true,
-    minlength: [8, 'Pease confirm your password']
+    minlength: [8, 'Pease confirm your password'],
+    validate: {
+      // this only work on SAVE!!
+      validator: function(el) {
+        return el === this.password;
+      },
+      message: 'Passwords are not the same'
+    }
   }
 })
 
